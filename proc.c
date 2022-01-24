@@ -411,30 +411,31 @@ scheduler(void)
     // Loop over process table looking for process to run.
     acquire(&ptable.lock);
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-      #ifdef ZERO
+      //#ifdef ZERO
         if(p->state != RUNNABLE)
           continue;
-      #else
-      #ifdef ONE
-        if(p->state != RUNNABLE)
-          continue;
-        struct proc *p1;
-        struct proc *highestPriorityProc = p;
-        for(p1 = ptable.proc; p1 < &ptable.proc[NPROC]; p1++){
-          if((p1->state == RUNNABLE) && (p1->priority < highestPriorityProc->priority)){
-            highestPriorityProc = p1;
-          }
-        }
-        p = highestPriorityProc; 
+      //#else
+      //#ifdef ONE
+      //  if(p->state != RUNNABLE)
+      //   continue;
+      //  struct proc *p1;
+      //  struct proc *highestPriorityProc = p;
+      //  for(p1 = ptable.proc; p1 < &ptable.proc[NPROC]; p1++){
+      //    if((p1->state == RUNNABLE) && (p1->priority < highestPriorityProc->priority)){
+      //      highestPriorityProc = p1;
+      //    }
+      //  }
+      //  p = highestPriorityProc; 
 
-      #endif
-      #endif
+      //#endif
+      //#endif
       // Switch to chosen process.  It is the process's job
       // to release ptable.lock and then reacquire it
       // before jumping back to us.
       c->proc = p;
       switchuvm(p);
       p->state = RUNNING;
+      p->tickcounter = 0;
 
       swtch(&(c->scheduler), p->context);
       switchkvm();
@@ -786,4 +787,13 @@ int
 unit3_operation(void)
 {
   return 0;
+}
+
+int inctickcounter() {
+  struct proc *p = myproc();
+  int res;
+  acquire(&ptable.lock);
+  res = ++p->tickcounter;
+  release(&ptable.lock);
+  return res;
 }
