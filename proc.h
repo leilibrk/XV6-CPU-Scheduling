@@ -52,11 +52,11 @@ struct proc {
   int stackTop;
   int priority;
   int threads;                 //number of threads
-  int cTime;                   //creation time
-  int tTime;                   //termination time
-  int runTime;                 //running time
-  int readyTime;
-  int sTime;                   //sleeping time
+  uint ctime;                   //creation time
+  int ttime;                   //termination time
+  int rutime;                 //running time
+  int retime;
+  int stime;                   //sleeping time
   int tickcounter;
 };
 
@@ -65,3 +65,6 @@ struct proc {
 //   original data and bss
 //   fixed-size stack
 //   expandable heap
+
+void updateStatus();
+

@@ -5,8 +5,8 @@
 #define N  30
 
 int main(void){
-  int n, pid;
-  changePolicy(1);
+    int n, pid;
+
   printf(1, "priority Test\n");
 
   for(n=0; n<N; n++){

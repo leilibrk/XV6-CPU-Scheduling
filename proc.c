@@ -13,7 +13,7 @@ struct {
 } ptable;
 
 static struct proc *initproc;
-int schedIdentity = 0;
+
 int nextpid = 1;
 extern void forkret(void);
 extern void trapret(void);
@@ -91,6 +91,10 @@ allocproc(void)
 found:
   p->state = EMBRYO;
   p->pid = nextpid++;
+  p->ctime = ticks
+  p->retime = 0;
+  p->rutime = 0;
+  p->stime = 0;
   p->stackTop = -1;
   p->threads = -1;
   p->priority = 3; //default value of priority
@@ -135,6 +139,7 @@ userinit(void)
     panic("userinit: out of memory?");
   inituvm(p->pgdir, _binary_initcode_start, (int)_binary_initcode_size);
   p->sz = PGSIZE;
+  p->ctime = ticks;
   memset(p->tf, 0, sizeof(*p->tf));
   p->tf->cs = (SEG_UCODE << 3) | DPL_USER;
   p->tf->ds = (SEG_UDATA << 3) | DPL_USER;
@@ -322,6 +327,7 @@ exit(void)
 
   // Jump into the scheduler, never to return.
   curproc->state = ZOMBIE;
+  curproc->ttime = ticks;
   sched();
   panic("zombie exit");
 }
@@ -411,7 +417,6 @@ scheduler(void)
     // Loop over process table looking for process to run.
     acquire(&ptable.lock);
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-<<<<<<< HEAD
       //#ifdef ZERO
         if(p->state != RUNNABLE)
           continue;
@@ -430,24 +435,6 @@ scheduler(void)
 
       //#endif
       //#endif
-=======
-      if(schedIdentity == 0){
-        if(p->state != RUNNABLE)
-           continue;
-       }
-       else if (schedIdentity == 1){
-          if(p->state != RUNNABLE)
-            continue;
-          struct proc *p1;
-          struct proc *highestPriorityProc = p;
-          for(p1 = ptable.proc; p1 < &ptable.proc[NPROC]; p1++){
-            if((p1->state == RUNNABLE) && (p1->priority < highestPriorityProc->priority)){
-                highestPriorityProc = p1;
-            }
-          }
-          p = highestPriorityProc; 
-       }
->>>>>>> bd984119fdb2f15b1163e1938abab1c282ebc1b6
       // Switch to chosen process.  It is the process's job
       // to release ptable.lock and then reacquire it
       // before jumping back to us.
@@ -780,7 +767,8 @@ setPriority(int priority){
 }
 int
 changePolicy(int schedNum){
-  schedIdentity = schedNum;
+
+
   return 0;
 }
 int
@@ -814,4 +802,25 @@ int inctickcounter() {
   res = ++p->tickcounter;
   release(&ptable.lock);
   return res;
+}
+
+void updateStatus() {
+  struct proc *p;
+  acquire(&ptable.lock);
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    switch(p->state) {
+      case RUNNABLE:
+        p->retime++;
+        break;
+      case SLEEPING:
+        p->stime++;
+        break;
+      case RUNNING:
+        p->rutime++;
+        break;
+      default:
+        ;
+    }
+  }
+  release(&ptable.lock);
 }
