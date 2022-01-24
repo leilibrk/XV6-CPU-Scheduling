@@ -759,6 +759,12 @@ setPriority(int priority){
   return 0;
 }
 int
+changePolicy(int schedNum){
+
+
+  return 0;
+}
+int
 unit0_operation(void)
 {
   return 0;

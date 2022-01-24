@@ -130,6 +130,7 @@ int             unit1_operation(void);
 int             unit2_operation(void);
 int             unit3_operation(void);
 int             setPriority(int priority);
+int             changePolicy(int schedNum);
 
 // swtch.S
 void            swtch(struct context**, struct context*);

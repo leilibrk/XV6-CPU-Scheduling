@@ -48,3 +48,4 @@ void free(void*);
 int atoi(const char*);
 int thread_creator(void (*fn) (void *), void *arg, int status);
 int setPriority(int priority);
+int changePolicy(int schedNum);
