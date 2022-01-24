@@ -129,6 +129,7 @@ int             unit0_operation(void);
 int             unit1_operation(void);
 int             unit2_operation(void);
 int             unit3_operation(void);
+int             setPriority(int priority);
 
 // swtch.S
 void            swtch(struct context**, struct context*);

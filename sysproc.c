@@ -150,3 +150,10 @@ sys_unit3_operation(void)
 {
   return unit3_operation();
 }
+int 
+sys_setPriority(void)
+{
+  int priority;
+  argint(0, &priority);
+  return setPriority(priority);
+}

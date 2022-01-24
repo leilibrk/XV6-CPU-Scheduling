@@ -29,3 +29,4 @@
 #define SYS_unit1_operation 96
 #define SYS_unit2_operation 97
 #define SYS_unit3_operation 98
+#define SYS_setPriority 99

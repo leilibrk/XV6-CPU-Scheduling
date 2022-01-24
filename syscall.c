@@ -112,6 +112,7 @@ extern int sys_unit0_operation(void);
 extern int sys_unit1_operation(void);
 extern int sys_unit2_operation(void);
 extern int sys_unit3_operation(void);
+extern int sys_setPriority(void);
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -144,6 +145,7 @@ static int (*syscalls[])(void) = {
 [SYS_unit1_operation] sys_unit1_operation,
 [SYS_unit2_operation] sys_unit2_operation,
 [SYS_unit3_operation] sys_unit3_operation,
+[SYS_setPriority]     sys_setPriority,
 };
 
 void
