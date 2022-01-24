@@ -186,6 +186,8 @@ UPROGS=\
 	_getReadCountTest\
 	_threadsTest1\
 	_threadsTest2\
+	_roundRobinTest\
+	_prioritySchedTest\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
@@ -263,7 +265,8 @@ EXTRA=\
 	_getReadCountTest.c\
 	_threadsTest1.c\
 	_threadsTest2.c\
-
+	_roundRobinTest.c\
+	_prioritySchedTest.c
 dist:
 	rm -rf dist
 	mkdir dist

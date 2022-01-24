@@ -411,11 +411,11 @@ scheduler(void)
     // Loop over process table looking for process to run.
     acquire(&ptable.lock);
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-      #ifdef ZERO
-        if(p->state != RUNNABLE)
-          continue;
-      #else
-      #ifdef ONE
+      //#ifdef ZERO
+      //  if(p->state != RUNNABLE)
+       //   continue;
+      //#else
+      //#ifdef ONE
         if(p->state != RUNNABLE)
           continue;
         struct proc *p1;
@@ -427,8 +427,8 @@ scheduler(void)
         }
         p = highestPriorityProc; 
 
-      #endif
-      #endif
+      //#endif
+      //#endif
       // Switch to chosen process.  It is the process's job
       // to release ptable.lock and then reacquire it
       // before jumping back to us.
