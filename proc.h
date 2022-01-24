@@ -36,12 +36,8 @@ enum procstate { UNUSED, EMBRYO, SLEEPING, RUNNABLE, RUNNING, ZOMBIE };
 
 // Per-process state
 struct proc {
-  int threads;                // -1 for child thread, 1 for child process, and others for parent thread
-  int stackTop;
-  int status;                  // 0 for unit threads and 1 for task threads
-  int priority;                
   uint sz;                     // Size of process memory (bytes)
-  pde_t* pgdir;                // Page table
+  pde_t* pgdir;                // Page table (pointer to ptable)
   char *kstack;                // Bottom of kernel stack for this process
   enum procstate state;        // Process state
   int pid;                     // Process ID
@@ -53,6 +49,13 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
+  int stackTop;
+  int threads;                 //number of threads
+  int cTime;                   //creation time
+  int tTime;                   //termination time
+  int runTime;                 //running time
+  int readyTime;
+  int sTime;                   //sleeping time
 };
 
 // Process memory is laid out contiguously, low addresses first:
