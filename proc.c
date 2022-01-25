@@ -437,7 +437,24 @@ scheduler(void)
           }
       }
       if(schedIdentity == 2){
-        
+        struct proc *foundP = 0;
+
+        uint priority = 1;
+
+        int index1 = 0;
+        int index2 = 0;
+        int index3 = 0;
+        int index4 = 0;
+        int index5 = 0;
+        int index6 = 0;
+
+        foundP = findReadyProcess(&index1, &index2, &index3, &index4, &index5, &index6, &priority);
+        if (foundP != 0)
+          p = foundP;
+        else{
+          if(p->state != RUNNABLE)
+            continue;
+        }
       }
       if(p != 0){
         // Switch to chosen process.  It is the process's job
@@ -858,5 +875,59 @@ getrutime(int pid){
     }
   }
   release(&ptable.lock);
+  return 0;
+}
+struct proc* findReadyProcess(int *index1, int *index2, int *index3, int *index4, int *index5, int *index6, uint *priority) {
+  int i;
+  struct proc* proc2;
+notfound:
+  for (i = 0; i < NPROC; i++) {
+    switch(*priority) {
+      case 1:
+        proc2 = &ptable.proc[(*index1 + i) % NPROC];
+        if (proc2->state == RUNNABLE && proc2->priority == *priority) {
+          *index1 = (*index1 + 1 + i) % NPROC;
+          return proc2; // found a runnable process with appropriate priority
+        }
+      case 2:
+        proc2 = &ptable.proc[(*index2 + i) % NPROC];
+        if (proc2->state == RUNNABLE && proc2->priority == *priority) {
+          *index2 = (*index2 + 1 + i) % NPROC;
+          return proc2; // found a runnable process with appropriate priority
+        }
+      case 3:
+        proc2 = &ptable.proc[(*index3 + i) % NPROC];
+        if (proc2->state == RUNNABLE && proc2->priority == *priority){
+          *index3 = (*index3 + 1 + i) % NPROC;
+          return proc2; // found a runnable process with appropriate priority
+        }
+      case 4:
+        proc2 = &ptable.proc[(*index4 + i) % NPROC];
+        if (proc2->state == RUNNABLE && proc2->priority == *priority){
+          *index4 = (*index4 + 1 + i) % NPROC;
+          return proc2; // found a runnable process with appropriate priority
+        }
+      case 5:
+        proc2 = &ptable.proc[(*index5 + i) % NPROC];
+        if (proc2->state == RUNNABLE && proc2->priority == *priority){
+          *index5 = (*index5 + 1 + i) % NPROC;
+          return proc2; // found a runnable process with appropriate priority
+        }
+      case 6:
+        proc2 = &ptable.proc[(*index6 + i) % NPROC];
+        if (proc2->state == RUNNABLE && proc2->priority == *priority){
+          *index6 = (*index6 + 1 + i) % NPROC;
+          return proc2; // found a runnable process with appropriate priority
+        }
+    }
+  }
+  if (*priority == 3) {//did not find any process on any of the prorities
+    *priority = 3;
+    return 0;
+  }
+  else {
+    *priority += 1; //will try to find a process at a lower priority (ighter value of priority)
+    goto notfound;
+  }
   return 0;
 }
