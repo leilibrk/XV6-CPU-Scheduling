@@ -131,6 +131,9 @@ int             unit2_operation(void);
 int             unit3_operation(void);
 int             setPriority(int priority);
 int             changePolicy(int schedNum);
+uint            getctime(int);
+int             gettime(int);
+int             getrutime(int);
 
 // swtch.S
 void            swtch(struct context**, struct context*);

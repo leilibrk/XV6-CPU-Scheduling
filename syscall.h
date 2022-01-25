@@ -31,3 +31,6 @@
 #define SYS_unit3_operation 98
 #define SYS_setPriority 99
 #define SYS_changePolicy 100
+#define SYS_getctime 101
+#define SYS_getttime 102
+#define SYS_ getrutime 203

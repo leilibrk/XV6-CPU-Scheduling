@@ -164,3 +164,27 @@ sys_changePolicy(void)
   argint(0, &schedNum);
   return changePolicy(schedNum);
 }
+
+int
+sys_getctime(void)
+{
+  int pid;
+  argint(0, &pid);
+  return (int)getctime(pid);
+}
+
+int
+sys_getttime(void)
+{
+  int pid;
+  argint(0, &pid);
+  return getttime(pid);
+}
+
+int
+sys_getrutime(void)
+{
+  int pid;
+  argint(0, &pid);
+  return getrutime(pid);
+}

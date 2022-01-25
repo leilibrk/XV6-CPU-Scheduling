@@ -32,6 +32,9 @@ int unit0_operation(void);
 int unit1_operation(void);
 int unit2_operation(void);
 int unit3_operation(void);
+uint getctime(int);
+int gettime(int);
+int getrutime(int);
 
 // ulib.c
 int stat(const char*, struct stat*);

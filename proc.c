@@ -91,7 +91,7 @@ allocproc(void)
 found:
   p->state = EMBRYO;
   p->pid = nextpid++;
-  p->ctime = ticks
+  p->ctime = ticks;
   p->retime = 0;
   p->rutime = 0;
   p->stime = 0;
@@ -441,7 +441,6 @@ scheduler(void)
       c->proc = p;
       switchuvm(p);
       p->state = RUNNING;
-      p->tickcounter = 0;
 
       swtch(&(c->scheduler), p->context);
       switchkvm();
@@ -795,14 +794,6 @@ unit3_operation(void)
   return 0;
 }
 
-int inctickcounter() {
-  struct proc *p = myproc();
-  int res;
-  acquire(&ptable.lock);
-  res = ++p->tickcounter;
-  release(&ptable.lock);
-  return res;
-}
 
 void updateStatus() {
   struct proc *p;
@@ -823,4 +814,44 @@ void updateStatus() {
     }
   }
   release(&ptable.lock);
+}
+
+
+uint
+getctime(int pid){
+  struct proc *p;
+  acquire(&ptable.lock);
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    if(p->pid == pid){
+      return p->ctime;
+    }
+  }
+  release(&ptable.lock);
+  return 0;
+}
+
+int
+getttime(int pid){
+  struct proc *p;
+  acquire(&ptable.lock);
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    if(p->pid == pid){
+      return p->ttime;
+    }
+  }
+  release(&ptable.lock);
+  return 0;
+}
+
+int
+getrutime(int pid){
+  struct proc *p;
+  acquire(&ptable.lock);
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    if(p->pid == pid){
+      return p->rutime;
+    }
+  }
+  release(&ptable.lock);
+  return 0;
 }
