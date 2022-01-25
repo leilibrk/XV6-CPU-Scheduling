@@ -33,4 +33,4 @@
 #define SYS_changePolicy 100
 #define SYS_getctime 101
 #define SYS_getttime 102
-#define SYS_ getrutime 203
+#define SYS_getrutime 103

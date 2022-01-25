@@ -132,7 +132,7 @@ int             unit3_operation(void);
 int             setPriority(int priority);
 int             changePolicy(int schedNum);
 uint            getctime(int);
-int             gettime(int);
+int             getttime(int);
 int             getrutime(int);
 
 // swtch.S

@@ -33,7 +33,7 @@ int unit1_operation(void);
 int unit2_operation(void);
 int unit3_operation(void);
 uint getctime(int);
-int gettime(int);
+int getttime(int);
 int getrutime(int);
 
 // ulib.c

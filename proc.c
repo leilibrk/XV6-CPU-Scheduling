@@ -423,30 +423,37 @@ scheduler(void)
           continue;
       }
       if(schedIdentity == 1){
-        if(p->state != RUNNABLE)
-          continue;
-       struct proc *p1;
-       struct proc *highestPriorityProc = p;
-       for(p1 = ptable.proc; p1 < &ptable.proc[NPROC]; p1++){
-         if((p1->state == RUNNABLE) && (p1->priority < highestPriorityProc->priority)){
-           highestPriorityProc = p1;
-         }
-       }
-       p = highestPriorityProc; 
+          if(p->state != RUNNING){
+            if(p->state != RUNNABLE)
+              continue;
+            struct proc *p1;
+            struct proc *highestPriorityProc = p;
+            for(p1 = ptable.proc; p1 < &ptable.proc[NPROC]; p1++){
+              if((p1->state == RUNNABLE) && (p1->priority < highestPriorityProc->priority)){
+                highestPriorityProc = p1;
+              }
+            }
+            p = highestPriorityProc; 
+          }
       }
-      // Switch to chosen process.  It is the process's job
-      // to release ptable.lock and then reacquire it
-      // before jumping back to us.
-      c->proc = p;
-      switchuvm(p);
-      p->state = RUNNING;
+      if(schedIdentity == 2){
+        
+      }
+      if(p != 0){
+        // Switch to chosen process.  It is the process's job
+        // to release ptable.lock and then reacquire it
+        // before jumping back to us.
+        c->proc = p;
+        switchuvm(p);
+        p->state = RUNNING;
 
-      swtch(&(c->scheduler), p->context);
-      switchkvm();
+        swtch(&(c->scheduler), p->context);
+        switchkvm();
 
-      // Process is done running for now.
-      // It should have changed its p->state before coming back.
-      c->proc = 0;
+        // Process is done running for now.
+        // It should have changed its p->state before coming back.
+        c->proc = 0;
+      }
     }
     release(&ptable.lock);
 
