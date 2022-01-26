@@ -36,6 +36,7 @@ uint getctime(int);
 int getttime(int);
 int getrutime(int);
 int getProcStatus(int, int);
+int getPriority(int pid);
 
 
 // ulib.c

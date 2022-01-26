@@ -6,6 +6,7 @@
 
 int main(void){
   int n, pid;
+  int size[] = {60, 10, 10, 10, 10, 10, 10};
   changePolicy(2);
   printf(1, "MultiLayered Test\n");
 
@@ -39,37 +40,38 @@ int main(void){
             exit();
         }
     }
-    int sumTurnaround = 0;
-    int sumWaiting = 0;
-    int sumBurst = 0;
+    int totalTurnaround[7];
+    int totalWaiting[7];
+    int totalBurst[7];
 
-    for (int i = 0; i <60 ; i++) {
+
+    for (int i = 0; i <30 ; ++i) {
         int pid = wait();
         int turnAround = getProcStatus(2, pid) - getProcStatus(1, pid);
         int waitingTime = getProcStatus(4, pid);
         int sleeping = getProcStatus(5, pid);
         int cpuBurst = getProcStatus(3, pid);
-        sumTurnaround += turnAround;
-        sumWaiting += waitingTime;
-        sumBurst += cpuBurst;
-        printf(1, "pid: %d, ", getpid());
-        printf(1, "creation time = %d", getProcStatus(1, pid));
-        printf(1, "termination time = %d", getProcStatus(2, pid));
-        printf(1, "turnaround time = %d, ", turnAround);
-        printf(1, "waiting time = %d, ", waitingTime);
-        printf(1, "sleeping time = %d, ", sleeping);
-        printf(1, "cpu burst = %d, ", cpuBurst);
-        printf(1,"\n");
-
-
+        totalTurnaround[0] += turnAround;
+        totalWaiting[0] += waitingTime;
+        totalBurst[0] += cpuBurst;
+        
+        totalTurnaround[getPriority(pid)] += turnAround;
+        totalWaiting[getPriority(pid)] += waitingTime;
+        totalBurst[getPriority(pid)] += cpuBurst;
+        printf(1, "PID: %d | Turnaround Time: %d | Waiting Time: %d"
+                  " | CPU Burst Time: %d | Sleeping Time: %d\n", pid, turnAround, waitingTime, cpuBurst, sleeping);
     }
 
-    int avgTurnaround = sumTurnaround / 10;
-    int avgWaiting = sumWaiting / 10;
-    int avgCBT = sumBurst / 10;
-    printf(1, "average turnaround time: %d",avgTurnaround);
-    printf(1, "average waiting time: %d",avgWaiting);
-    printf(1, "average cpu burst time: %d",avgCBT);
+    for (int i = 0; i <7 ; ++i) {
+        totalTurnaround[i] = totalTurnaround[i] / size[i];
+        totalWaiting[i] = totalWaiting[i] / size[i];
+        totalBurst[i] = totalBurst[i] / size[i];
+    }
+    printf(1, "average turnaround: %d waiting: %d burst: %d \n", totalTurnaround[0], totalWaiting[0], totalBurst[0]);
+    for (int i=1;i<7;i++){
+        printf(1, "priority: %d average turnaround: %d  waiting: %d  burst: %d \n",
+               i, totalTurnaround[i], totalWaiting[i], totalBurst[i]);
+    }
 
     exit();
 }

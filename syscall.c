@@ -118,6 +118,7 @@ extern int sys_getctime(void);
 extern int sys_getttime(void);
 extern int sys_getrutime(void);
 extern int sys_getProcStatus(void);
+extern int sys_getPriority(void);
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -156,6 +157,7 @@ static int (*syscalls[])(void) = {
 [SYS_getttime]    sys_getttime,
 [SYS_getrutime]    sys_getrutime,
 [SYS_getProcStatus] sys_getProcStatus,
+[SYS_getPriority] sys_getPriority,
 };
 
 void
