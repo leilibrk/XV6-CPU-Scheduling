@@ -134,6 +134,8 @@ int             changePolicy(int schedNum);
 uint            getctime(int);
 int             getttime(int);
 int             getrutime(int);
+int             getProcStatus(int, int);
+
 
 // swtch.S
 void            swtch(struct context**, struct context*);

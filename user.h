@@ -35,6 +35,8 @@ int unit3_operation(void);
 uint getctime(int);
 int getttime(int);
 int getrutime(int);
+int getProcStatus(int, int);
+
 
 // ulib.c
 int stat(const char*, struct stat*);

@@ -188,3 +188,11 @@ sys_getrutime(void)
   argint(0, &pid);
   return getrutime(pid);
 }
+
+int
+sys_getProcStatus(void){
+    int type, pid;
+    if(argint(0, &type) < 0 || argint(1, &pid) < 0)
+        return -1;
+    return getProcStatus(type, pid);
+}

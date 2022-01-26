@@ -34,3 +34,4 @@
 #define SYS_getctime 101
 #define SYS_getttime 102
 #define SYS_getrutime 103
+#define SYS_getProcStatus 104
