@@ -129,7 +129,7 @@ int             unit0_operation(void);
 int             unit1_operation(void);
 int             unit2_operation(void);
 int             unit3_operation(void);
-int             setPriority(int priority);
+int             setPriority(int priority, int pid);
 int             changePolicy(int schedNum);
 uint            getctime(int);
 int             getttime(int);

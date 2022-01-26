@@ -32,11 +32,13 @@ int unit0_operation(void);
 int unit1_operation(void);
 int unit2_operation(void);
 int unit3_operation(void);
+int setPriority(int priority, int pid);
 uint getctime(int);
 int getttime(int);
 int getrutime(int);
 int getProcStatus(int, int);
 int getPriority(int pid);
+int changePolicy(int schedNum);
 
 
 // ulib.c
@@ -53,5 +55,3 @@ void* malloc(uint);
 void free(void*);
 int atoi(const char*);
 int thread_creator(void (*fn) (void *), void *arg, int status);
-int setPriority(int priority);
-int changePolicy(int schedNum);

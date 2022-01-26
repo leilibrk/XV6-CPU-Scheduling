@@ -14,22 +14,22 @@ int main(void){
         break;
       if(pid == 0){
         if(n < 5){
-            setPriority(6);
+            setPriority(6, pid);
         }
         if(n >= 5 && n < 10){
-            setPriority(5);
+            setPriority(5, pid);
         }
         if(n >= 10 && n < 15){
-            setPriority(4);
+            setPriority(4, pid);
         }
         if(n >= 15 && n < 20){
-            setPriority(3);
+            setPriority(3, pid);
         }
         if(n >= 20 && n < 25){
-            setPriority(2);
+            setPriority(2, pid);
         }
         if(n >= 25){
-            setPriority(1);
+            setPriority(1, pid);
         }
         for(int i=0 ; i<250 ; i++){
             printf(1, "/%d/ : /%d/ \n", pid, i+1);

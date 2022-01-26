@@ -153,9 +153,10 @@ sys_unit3_operation(void)
 int 
 sys_setPriority(void)
 {
-  int priority;
+  int priority, pid;
   argint(0, &priority);
-  return setPriority(priority);
+  argint(1, &pid);
+  return setPriority(priority, pid);
 }
 int
 sys_changePolicy(void)

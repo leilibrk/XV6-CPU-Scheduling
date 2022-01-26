@@ -16,22 +16,22 @@ int main(void){
             break;
         if(pid == 0){
             if(n < 10){
-                setPriority(1);
+                setPriority(1, pid);
             }
             if(n >= 10 && n < 20){
-                setPriority(2);
+                setPriority(2, pid);
             }
             if(n >= 20 && n < 30){
-                setPriority(3);
+                setPriority(3, pid);
             }
             if(n >= 30 && n < 40){
-                setPriority(4);
+                setPriority(4, pid);
             }
             if(n >= 40 && n < 50){
-                setPriority(5);
+                setPriority(5, pid);
             }
             if(n >= 50){
-                setPriority(6);
+                setPriority(6, pid);
             }
             for(int i=0 ; i<200 ; i++){
                 printf(1, "/%d/ : /%d/ \n", pid, i+1);
@@ -54,7 +54,7 @@ int main(void){
         totalTurnaround[0] += turnAround;
         totalWaiting[0] += waitingTime;
         totalBurst[0] += cpuBurst;
-        
+
         totalTurnaround[getPriority(pid)] += turnAround;
         totalWaiting[getPriority(pid)] += waitingTime;
         totalBurst[getPriority(pid)] += cpuBurst;

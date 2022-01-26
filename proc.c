@@ -828,13 +828,17 @@ thread_wait(void)
   }
 }
 int
-setPriority(int priority){
-  struct proc *curproc = myproc();
+setPriority(int priority, int pid){
+  struct proc *p;
   if(priority<1 || priority>6){
     priority = 5;
   }
   acquire(&ptable.lock);
-  curproc->priority = priority;
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    if(p->pid == pid){
+      p->priority = priority;
+    }
+  }
   release(&ptable.lock);
   return 0;
 }
