@@ -268,7 +268,8 @@ EXTRA=\
 	_threadsTest2.c\
 	_roundRobinTest.c\
 	_prioritySchedTest.c\
-	_multiLayeredQueuedTest.c
+	_multiLayeredQueuedTest.c\
+
 dist:
 	rm -rf dist
 	mkdir dist
