@@ -33,7 +33,7 @@ int main(void){
             if(n >= 50){
                 setPriority(6, pid);
             }
-            for(int i=0 ; i<200 ; i++){
+            for(int i=0 ; i<20 ; i++){
                 printf(1, "/%d/ : /%d/ \n", pid, i+1);
             }
             sleep(300);

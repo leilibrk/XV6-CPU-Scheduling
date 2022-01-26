@@ -99,6 +99,7 @@ found:
   p->stackTop = -1;
   p->threads = -1;
   p->priority = 3; //default value of priority
+  p->qua = 0; 
   release(&ptable.lock);
 
   // Allocate kernel stack.
@@ -405,36 +406,42 @@ struct proc* findReadyProcess(int *index1, int *index2, int *index3, int *index4
         proc2 = &ptable.proc[(*index1 + i) % NPROC];
         if (proc2->state == RUNNABLE && proc2->priority == *priority) {
           *index1 = (*index1 + 1 + i) % NPROC;
+          proc2->qua = 6;
           return proc2; // found a runnable process with appropriate priority
         }
       case 2:
         proc2 = &ptable.proc[(*index2 + i) % NPROC];
         if (proc2->state == RUNNABLE && proc2->priority == *priority) {
           *index2 = (*index2 + 1 + i) % NPROC;
+          proc2->qua = 5;
           return proc2; // found a runnable process with appropriate priority
         }
       case 3:
         proc2 = &ptable.proc[(*index3 + i) % NPROC];
         if (proc2->state == RUNNABLE && proc2->priority == *priority){
           *index3 = (*index3 + 1 + i) % NPROC;
+          proc2->qua = 4;
           return proc2; // found a runnable process with appropriate priority
         }
       case 4:
         proc2 = &ptable.proc[(*index4 + i) % NPROC];
         if (proc2->state == RUNNABLE && proc2->priority == *priority){
           *index4 = (*index4 + 1 + i) % NPROC;
+          proc2->qua = 3;
           return proc2; // found a runnable process with appropriate priority
         }
       case 5:
         proc2 = &ptable.proc[(*index5 + i) % NPROC];
         if (proc2->state == RUNNABLE && proc2->priority == *priority){
           *index5 = (*index5 + 1 + i) % NPROC;
+          proc2->qua = 2;
           return proc2; // found a runnable process with appropriate priority
         }
       case 6:
         proc2 = &ptable.proc[(*index6 + i) % NPROC];
         if (proc2->state == RUNNABLE && proc2->priority == *priority){
           *index6 = (*index6 + 1 + i) % NPROC;
+          proc2->qua = 1;
           return proc2; // found a runnable process with appropriate priority
         }
     }

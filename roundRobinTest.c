@@ -4,7 +4,7 @@
 
 int main() {
 
-    for (int i = 0; i <30 ; i++) {
+    for (int i = 0; i <3 ; i++) {
         int pid= fork();
         if ( pid== 0) {
             for (int i = 0; i < 1000; i++) {
@@ -19,7 +19,7 @@ int main() {
     int sumWaiting = 0;
     int sumBurst = 0;
 
-    for (int i = 0; i <30 ; i++) {
+    for (int i = 0; i <3 ; i++) {
         int pid = wait();
         int turnAround = getProcStatus(2, pid) - getProcStatus(1, pid);
         int waitingTime = getProcStatus(4, pid);
