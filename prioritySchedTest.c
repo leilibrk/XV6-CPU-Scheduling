@@ -54,7 +54,7 @@ int main(void){
         totalTurnaround[0] += turnAround;
         totalWaiting[0] += waitingTime;
         totalBurst[0] += cpuBurst;
-        printf(1, "get priority: \n", getPriority(pid));
+        // printf(1, "get priority: \n", getPriority(pid));
         totalTurnaround[getPriority(pid)] += turnAround;
         totalWaiting[getPriority(pid)] += waitingTime;
         totalBurst[getPriority(pid)] += cpuBurst;
