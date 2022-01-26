@@ -8,7 +8,7 @@ int main() {
         int pid= fork();
         if ( pid== 0) {
             for (int i = 0; i < 1000; i++) {
-                printf(1, "/PID/ : /%d/\n", getpid());
+                printf(1, "/%d/ : /%d/\n", getpid(), i);
             }
             sleep(300);
             exit();
