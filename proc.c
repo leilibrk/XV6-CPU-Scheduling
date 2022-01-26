@@ -100,6 +100,7 @@ found:
   p->threads = -1;
   p->priority = 3; //default value of priority
   p->qua = 0; 
+  p->three = 0;
   release(&ptable.lock);
 
   // Allocate kernel stack.
@@ -494,7 +495,12 @@ scheduler(void)
         }
         p = highestPriorityProc; 
       }
-      if(schedIdentity == 2){
+      if(schedIdentity == 2 || schedIdentity == 3){
+        if(schedIdentity == 3){
+          for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+            p->three = 3;
+          }
+        }
         struct proc *foundP = 0;
 
         int priority = 1;
@@ -514,6 +520,7 @@ scheduler(void)
             continue;
         }
       }
+
       if(p != 0){
         // Switch to chosen process.  It is the process's job
         // to release ptable.lock and then reacquire it
@@ -640,8 +647,10 @@ wakeup1(void *chan)
   struct proc *p;
 
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
-    if(p->state == SLEEPING && p->chan == chan)
+    if(p->state == SLEEPING && p->chan == chan){
+      p->priority = 1;
       p->state = RUNNABLE;
+    }
 }
 
 // Wake up all processes sleeping on chan.

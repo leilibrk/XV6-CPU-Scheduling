@@ -58,6 +58,7 @@ struct proc {
   int retime;
   int stime;                   //sleeping time
   int qua; //additional quantum
+  int three;
 };
 
 // Process memory is laid out contiguously, low addresses first:

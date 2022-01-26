@@ -189,6 +189,7 @@ UPROGS=\
 	_roundRobinTest\
 	_prioritySchedTest\
 	_multiLayeredQueuedTest\
+	_dynamicMultiLayered\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
@@ -269,6 +270,7 @@ EXTRA=\
 	_roundRobinTest.c\
 	_prioritySchedTest.c\
 	_multiLayeredQueuedTest.c\
+	_dynamicMultiLayered.c\
 
 dist:
 	rm -rf dist
